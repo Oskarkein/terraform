@@ -6,6 +6,6 @@ import org.springframework.stereotype.Service;
 public class helloS {
 
     public String getHelloMessage() {
-        return "hello prueba";
+        return "Oskae Kein";
     }
 }
