@@ -6,6 +6,6 @@ import org.springframework.stereotype.Service;
 public class helloS {
 
     public String getHelloMessage() {
-        return "hoy es jueves";
+        return "hola hoy es jueves";
     }
 }
