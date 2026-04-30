@@ -1,0 +1,25 @@
+name: Deploy Backend
+
+on:
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Clonar repo
+        uses: actions/checkout@v4
+
+      - name: Build imagen
+        run: |
+          cd demo
+          docker build -t backend-app .
+
+      - name: Eliminar contenedor anterior
+        run: docker rm -f backend || true
+
+      - name: Ejecutar nuevo contenedor
+        run: docker run -d -p 8080:8080 --name backend backend-app
