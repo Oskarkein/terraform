@@ -7,7 +7,7 @@ COPY gradle gradle
 COPY build.gradle .
 COPY settings.gradle .
 COPY src src
-RUN chmod +x gradlew && ./gradlew --no-daemon clean bootJar -x test
+RUN chmod +x gradlew && ./gradlew --no-daemon clean bootJar -x test -Dorg.gradle.jvmargs="-Xmx256m"
 
 # Stage 2: RUNTIME
 FROM eclipse-temurin:21-jre-jammy
