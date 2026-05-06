@@ -13,14 +13,17 @@ jobs:
       - name: Clonar repo
         uses: actions/checkout@v4
 
+      - name: Cargar variables
+        run: cat /opt/app/.env >> $GITHUB_ENV
+
       - name: Bajar imagen desde el registry
-        run: docker pull 10.124.0.2:5000/springboot-app
+        run: docker pull $REGISTRY_IP:5000/springboot-app
 
       - name: Detener servicios anteriores
         run: docker compose down || true
 
       - name: Levantar backend, postgres y adminer
-        run: docker compose up -d
+        run: docker compose --env-file /opt/app/.env up -d
 
       - name: Ver contenedores activos
         run: docker ps
