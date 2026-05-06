@@ -1,6 +1,10 @@
 name: Deploy Backend
 
 on:
+  push:
+    branches:
+      - develop
+
   pull_request:
     branches:
       - main
@@ -12,6 +16,9 @@ jobs:
     steps:
       - name: Clonar repo
         uses: actions/checkout@v4
+
+      - name: Esperar a Jenkins
+        run: sleep 120
 
       - name: Cargar variables
         run: cat /opt/app/.env >> $GITHUB_ENV
