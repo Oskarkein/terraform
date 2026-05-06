@@ -13,11 +13,14 @@ jobs:
       - name: Clonar repo
         uses: actions/checkout@v4
 
-      - name: Build imagen
-        run: docker build -t backend-app .
+      - name: Bajar imagen desde el registry
+        run: docker pull 10.124.0.2:5000/springboot-app
 
-      - name: Eliminar contenedor anterior
-        run: docker rm -f backend || true
+      - name: Detener servicios anteriores
+        run: docker compose down || true
 
-      - name: Ejecutar nuevo contenedor
-        run: docker run -d -p 8080:8080 --name backend backend-app
+      - name: Levantar backend, postgres y adminer
+        run: docker compose up -d
+
+      - name: Ver contenedores activos
+        run: docker ps
