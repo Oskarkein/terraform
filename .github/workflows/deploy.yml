@@ -13,20 +13,14 @@ jobs:
       - name: Clonar repo
         uses: actions/checkout@v4
 
-      - name: Esperar a Jenkins
-        run: sleep 120
-
       - name: Cargar variables
         run: cat /opt/app/.env >> $GITHUB_ENV
-
-      - name: Bajar imagen desde el registry
-        run: docker pull $REGISTRY_IP:5000/springboot-app
 
       - name: Detener servicios anteriores
         run: docker compose down || true
 
       - name: Levantar backend, postgres y adminer
-        run: docker compose --env-file /opt/app/.env up -d
+        run: docker compose --env-file /opt/app/.env up -d --pull always
 
       - name: Ver contenedores activos
         run: docker ps
